@@ -13,6 +13,7 @@ def main():
         args = ["error"]
     if args[0] == "help":
         help_message = \
+
 """
 
 fib.py
@@ -67,7 +68,8 @@ phi_converge_output_format = \
     phi_old: {:.25f}
     phi_new: {:.25f}"""
 
-def phi_converge():
+def phi_converge(filename):
+    sys.stdout = open(filename, "w")
     """Keep calculating higher-order Fibonacci approximations to the golden
     ratio until it stops changing (to floating-point precision)."""
 
