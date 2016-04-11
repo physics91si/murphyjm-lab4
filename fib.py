@@ -29,7 +29,9 @@ Usage
     elif args[0] == "approx" and len(args) == 2:
         phi_approx(int(args[1]))
     elif args[0] == "converge" and len(args) == 1:
-        phi_converge()
+        phi_converge(False)
+    elif args[0] == "converge" and len(args) == 2:
+        phi_converge(True, args[1])
     else:
         print "Error: input not understood.\n" \
                 "    Type './fib.py help' for info on this program."
@@ -67,9 +69,13 @@ phi_converge_output_format = \
     phi_old: {:.25f}
     phi_new: {:.25f}"""
 
-def phi_converge():
+def phi_converge(write_file, filename=None):
     """Keep calculating higher-order Fibonacci approximations to the golden
     ratio until it stops changing (to floating-point precision)."""
+
+    if write_file:
+        sys.stdout = open(filename, "w")
+
 
     i = 3
     phi_old = phi_approx(i - 1, show_output=False)
@@ -80,5 +86,6 @@ def phi_converge():
         phi_new = phi_approx(i, show_output=False)
         print phi_converge_output_format.format(i, phi_new, phi_old)
     print "\nConverged to %.25f" % phi_new
+    sys.stdout.close()
 
 if __name__ == '__main__': main()
